@@ -1,6 +1,9 @@
 from keras.models import Sequential
 from keras.layers import InputLayer,Input,Conv2D, MaxPool2D,Reshape,Dense,Flatten
+from keras.models import load_model
 from dataset.cropped_dataset import CroppedDataset
+import numpy as np
+import cv2
 
 
 class ModelOne:
@@ -17,6 +20,23 @@ class ModelOne:
         self.train_model()
         self.test_model()
         self.save_model()
+
+    def predict(self, image):
+        # image = cv2.imread(path_image)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        model = load_model(self.path_to_save_model)
+        image = cv2.resize(image, (self.dataset.WIDTH_IMAGE, self.dataset.HEIGHT_IMAGE))
+        image = image.flatten()
+        image = image / 255
+
+        loaded_images = []
+        loaded_images.append(image)
+        loaded_images_npa = np.array(loaded_images)
+        print(loaded_images_npa.shape)
+        prediction = model.predict(x=loaded_images_npa)
+        major_classes = np.argmax(prediction, axis=1)
+        return major_classes[0]
+
 
     def _create_model(self):
         self._create_input_layer()
