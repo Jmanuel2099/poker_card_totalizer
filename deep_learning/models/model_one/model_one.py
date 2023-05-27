@@ -40,7 +40,7 @@ class ModelOne:
     def _create_convolutional_layer(self, layer_name):
         self.model.add(Conv2D(kernel_size=5,strides=2,filters=16,padding="same",activation="relu",name=layer_name))
         self.model.add(MaxPool2D(pool_size=2,strides=2))
-    
+
     def _create_output_layer(self):
         self.model.add(Dense(self.dataset.get_number_type_cards(), activation="softmax"))
 
@@ -59,6 +59,6 @@ class ModelOne:
         test_images, test_probabilities = self.dataset.read_dataset(self.dataset.TEST_DATASET)
         results = self.model.evaluate(x=test_images, y=test_probabilities)
         return results[1] # retorno el accuracy
-    
+
     def save_model(self):
         self.model.save(self.path_to_save_model)

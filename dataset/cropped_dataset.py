@@ -13,11 +13,13 @@ class CroppedDataset:
     def __init__(self) -> None:
         pass
 
-    def save_img_cropped(self, img_cropped, folder_to_save, image_name):
+    def save_img_cropped(self, imgs_cropped, folder_to_save, image_name):
+        # path_folder = os.path.join(self.DATASET_FOLDER, self.TRAINING_DATASET, folder_to_save)
         path_folder = os.path.join(self.DATASET_FOLDER, self.TRAINING_DATASET, folder_to_save)
         if not os.path.exists(path_folder):
             os.makedirs(path_folder)
-        cv2.imwrite(os.path.join(path_folder, image_name), img_cropped)
+        for img_cropped in imgs_cropped:
+            cv2.imwrite(os.path.join(path_folder, image_name), img_cropped)
 
     def get_number_type_cards(self):
         path_folder = os.path.join(self.DATASET_FOLDER, self.TRAINING_DATASET)

@@ -9,8 +9,9 @@ class ImageRecognition:
     def crop(self, gray_image, contours):
         areas= self._calcular_areas(contours)
         i = 0
-        # areaMin = cv2.getTrackbarPos("areaMin", self.name_window)
-        areaMin = 100
+        areaMin = cv2.getTrackbarPos("areaMin", self.name_window)
+        # areaMin = 7007
+        rois = []
         for contour in contours:
             if areas[i]>=areaMin:
                 # Crear una imagen en blanco del mismo tamaño que la imagen original
@@ -20,8 +21,9 @@ class ImageRecognition:
                 # Recortar la región dentro del contorno en la imagen original
                 x, y, w, h = cv2.boundingRect(contour)
                 cropped = gray_image[y:y+h, x:x+w]
-                return cropped
+                rois.append(cropped)
             i=i+1
+        return rois
 
     def detect_figure_from_video(self, image_original):
         imgame_gris = cv2.cvtColor(image_original, cv2.COLOR_BGR2GRAY) # convertir a escala de grises
@@ -33,14 +35,14 @@ class ImageRecognition:
             cv2.drawContours(image_original, [figuraActual], 0, (0, 0, 255), 2)
         return imgame_gris, contours
 
-    def detect_figure_from_file(self, path_img_original):
-        image = cv2.imread(path_img_original)
-        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # convertir a escala de grises 
-        min= 206
-        max= 232
-        binary_image=cv2.Canny(gray_image,min,max) # convertir a imagen binaria
-        contours, _=cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        return gray_image, contours
+    # def detect_figure_from_file(self, path_img_original):
+    #     image = cv2.imread(path_img_original)
+    #     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # convertir a escala de grises 
+    #     min= 206
+    #     max= 232
+    #     binary_image=cv2.Canny(gray_image,min,max) # convertir a imagen binaria
+    #     contours, _=cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    #     return gray_image, contours
 
     def _calcular_areas(self, figuras):
         areas=[]

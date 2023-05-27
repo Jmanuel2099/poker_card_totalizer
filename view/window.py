@@ -37,10 +37,12 @@ class Window:
             if key == 27:
                 break
             if key == 112:
-                self.image_recognition.crop(imgame_gris, contours)
+                images_cropped = self.image_recognition.crop(imgame_gris, contours)
+                for i, img in enumerate(images_cropped):
+                    cv2.imshow(f'ROIS {i}', img)
             if key in self.KEYS_TAKE_PICTURE:
-                image_cropped = self.image_recognition.crop(imgame_gris, contours)
-                self.dataset_creator.save_img_cropped(image_cropped, chr(key), f'{chr(key)}C{i}.jpg')
+                images_cropped = self.image_recognition.crop(imgame_gris, contours)
+                self.dataset_creator.save_img_cropped(images_cropped, chr(key), f'{chr(key)}C{i}.jpg')
                 i = i + 1
 
     def _nothing(x):
