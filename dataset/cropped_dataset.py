@@ -4,7 +4,8 @@ import numpy as np
 
 
 class CroppedDataset:
-    DATASET_FOLDER = 'C:\\Users\\jmanu\\PersonalProjects\\poker_card_totalizer\\dataset'
+    
+    DATASET_FOLDER = 'dataset'
     TRAINING_DATASET = 'train'
     TEST_DATASET = 'test'
     WIDTH_IMAGE = 128

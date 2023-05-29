@@ -31,7 +31,7 @@ class ModelOne:
         print(f'accuracy: {self.accuracy}, loss: {self.loss}, f1: {self.f1_score}, precision: {self.precision}, recall: {self.recall}')
 
     def predict(self, path_image):
-        model = self._load_model_trained()
+        self._load_model_trained()
         image = cv2.imread(path_image)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         image = cv2.resize(image, (self.dataset.WIDTH_IMAGE, self.dataset.HEIGHT_IMAGE))
@@ -41,7 +41,7 @@ class ModelOne:
         loaded_images = []
         loaded_images.append(image)
         loaded_images_npa = np.array(loaded_images)
-        prediction = model.predict(x=loaded_images_npa)
+        prediction = self.trained_modelc.predict(x=loaded_images_npa)
         print("Prediction", prediction)
         major_classes = np.argmax(prediction, axis=1)
         print(major_classes)

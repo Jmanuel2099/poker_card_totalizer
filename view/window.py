@@ -46,8 +46,7 @@ class Window:
                 images_cropped = self.image_recognition.crop(imgame_gris, contours)
                 for i, img in enumerate(images_cropped):
                     path_img = self.dataset.save_img_cropped(img, chr(key), f'{chr(key)}C{count_image}_{i}.jpg')
-                    image = cv2.imread(path_img)
-                    prediction = model_to_predict.predict(image)
+                    prediction = model_to_predict.predict(path_img)
                     value = self.dataset.get_card_value(prediction)
                     sum = sum + value
                 # cv2.putText(frame, f'Suma {sum}', (10,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
