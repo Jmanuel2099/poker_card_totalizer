@@ -5,7 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+parcial2_inteligentes/
 # Distribution / packaging
 .Python
 build/
