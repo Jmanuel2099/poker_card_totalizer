@@ -1,9 +1,8 @@
 from view.window import Window
 from deep_learning.models.model_one.model_one import ModelOne
 from deep_learning.models.model_two.model_two import ModelTwo
+
 from deep_learning.models.model_three.model_three import ModelThree
-
-
 class Main:
     def __init__(self) -> None:
         self.window = Window()
