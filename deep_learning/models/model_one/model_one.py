@@ -4,7 +4,7 @@ from keras.models import load_model
 from dataset.cropped_dataset import CroppedDataset
 import numpy as np
 import cv2
-from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score
+from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score, confusion_matrix
 from keras.losses import categorical_crossentropy
 
 
@@ -19,6 +19,7 @@ class ModelOne:
         self.f1_score = ''
         self.precision = ''
         self.recall = ''
+        self.correlation_matrix = ''
 
     def get_model(self):
         return self.model
@@ -29,6 +30,8 @@ class ModelOne:
         self._save_model()
         self._test_model()
         print(f'accuracy: {self.accuracy}, loss: {self.loss}, f1: {self.f1_score}, precision: {self.precision}, recall: {self.recall}')
+        print('Matrix de correlacion')
+        print(self.correlation_matrix)
 
     def predict(self, path_image):
         self._load_model_trained()
@@ -46,7 +49,6 @@ class ModelOne:
         major_classes = np.argmax(prediction, axis=1)
         print(major_classes)
         return major_classes[0]
-
 
     def _create_model(self):
         self._create_input_layer()
@@ -127,6 +129,7 @@ class ModelOne:
         self.precision = precision_score(y_true, y_predict, average='weighted')
         self.recall = recall_score(y_true, y_predict, average='weighted')
         self.f1_score = f1_score(y_true, y_predict, average='weighted')
+        self.correlation_matrix = confusion_matrix(y_true, y_predict)
 
     def _save_model(self):
         self.model.save(self.path_to_save_model)

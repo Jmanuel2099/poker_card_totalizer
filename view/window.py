@@ -2,7 +2,8 @@ import cv2
 import numpy as np
 from artificial_vision.image_recognition import ImageRecognition
 from dataset.cropped_dataset import CroppedDataset
-from deep_learning.models.model_one.model_one import ModelOne
+# from deep_learning.models.model_one.model_one import ModelOne
+from deep_learning.models.model_three.model_three import ModelThree
 
 
 class Window:
@@ -13,7 +14,6 @@ class Window:
         self.name_window = 'Nombre'
         self.image_recognition = ImageRecognition(self.name_window)
         self.dataset = CroppedDataset()
-
 
     def _create_window(self):
         cv2.namedWindow(self.name_window)
@@ -34,22 +34,21 @@ class Window:
         while True:
             _, frame = video.read()
             imgame_gris, contours = self.image_recognition.detect_figure_from_video(frame)
-            cv2.imshow("Window", frame)
             cv2.putText(frame, f'Acumulado {cumulated}, Sum {sum}', (10,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            cv2.imshow("Window", frame)
 
             key = cv2.waitKey(5) & 0xFF
             if key == 27:
                 break
             if key == 112:
                 sum = 0
-                model_to_predict = ModelOne()
+                model_to_predict = ModelThree()
                 images_cropped = self.image_recognition.crop(imgame_gris, contours)
                 for i, img in enumerate(images_cropped):
                     path_img = self.dataset.save_img_cropped(img, chr(key), f'{chr(key)}C{count_image}_{i}.jpg')
                     prediction = model_to_predict.predict(path_img)
                     value = self.dataset.get_card_value(prediction)
                     sum = sum + value
-                # cv2.putText(frame, f'Suma {sum}', (10,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
                 cumulated = cumulated + sum
             if key in self.KEYS_TAKE_PICTURE:
                 images_cropped = self.image_recognition.crop(imgame_gris, contours)

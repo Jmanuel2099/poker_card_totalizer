@@ -10,7 +10,7 @@ class CroppedDataset:
     TEST_DATASET = 'test'
     WIDTH_IMAGE = 128
     HEIGHT_IMAGE = 128
-    CARDS_VALUES = [10, 7, 8, 9, 11, 12, 13] # -> [0, 7, 8, 9, 11, 12, 13]
+    CARDS_VALUES = [10, 7, 8, 9, 11, 12, 13] # -> [0, 7, 8, 9, j, k, q]
 
     def __init__(self) -> None:
         pass
@@ -53,17 +53,5 @@ class CroppedDataset:
         expected_cards = np.array(expected_card)
         return training_images, expected_cards
 
-    # def _convert_cart_type_to_binary(self, card_type):
-    #     ascii_value = ord(card_type)
-    #     binary_value = format(ascii_value, '0' + str('7') + 'b')
-    #     binary_list = list(binary_value)
-
-    #     return list(map(int, binary_list))
-    
     def get_card_value(self, value):
         return self.CARDS_VALUES[value]
-
-    # def _convert_binary_to_cart_type(self, binary_arr):
-    #     binary = int(''.join(str(element) for element in binary_arr))
-    #     ascii_value = int(binary, 2)
-    #     return chr(ascii_value)
