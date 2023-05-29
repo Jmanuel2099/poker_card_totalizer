@@ -25,7 +25,7 @@ class ModelOne:
 
     def run(self):
         self._create_model()
-        self.train_model(epochs=50, batch_size=40)
+        self.train_model(epochs=50, batch_size=32)
         self._save_model()
         self._test_model()
         print(f'accuracy: {self.accuracy}, loss: {self.loss}, f1: {self.f1_score}, precision: {self.precision}, recall: {self.recall}')
@@ -50,18 +50,30 @@ class ModelOne:
 
     def _create_model(self):
         self._create_input_layer()
-        self._create_convolutional_layer(kernel=5, 
-                                        strides=2, 
+        self._create_convolutional_layer(kernel=8, 
+                                        strides=1, 
                                         filters=16, 
                                         padding="same", 
                                         activation="relu", 
-                                        layer_name="layer_1")
-        self._create_convolutional_layer(kernel=3, 
-                                        strides=1, 
+                                        layer_name="layer_1",
+                                        pooling=2,
+                                        strides_pooling=2)
+        self._create_convolutional_layer(kernel=4, 
+                                        strides=2, 
+                                        filters=26, 
+                                        padding="same", 
+                                        activation="relu",
+                                        layer_name="layer_2",
+                                        pooling=2,
+                                        strides_pooling=2)
+        self._create_convolutional_layer(kernel=4, 
+                                        strides=2, 
                                         filters=36, 
                                         padding="same", 
-                                        activation="relu", 
-                                        layer_name="layer_2")
+                                        activation="tanh", 
+                                        layer_name="layer_3",
+                                        pooling=2,
+                                        strides_pooling=2)
         self._flatten(activation="relu")
         self._create_output_layer(activation="softmax")
         self._translate_keras_to_tensorflow()
@@ -77,14 +89,14 @@ class ModelOne:
         self.model.add(InputLayer(input_shape=(pixels,)))
         self.model.add(Reshape(image_shape))
 
-    def _create_convolutional_layer(self, kernel, strides, filters, padding, activation, layer_name):
+    def _create_convolutional_layer(self, kernel, strides, filters, padding, activation, layer_name, pooling, strides_pooling):
         self.model.add(Conv2D(kernel_size=kernel,
                               strides=strides,
                               filters=filters,
                               padding=padding,
                               activation=activation,
                               name=layer_name))
-        self.model.add(MaxPool2D(pool_size=2,strides=2))
+        self.model.add(MaxPool2D(pool_size=pooling,strides=strides_pooling))
 
     def _create_output_layer(self, activation):
         self.model.add(Dense(self.dataset.get_number_type_cards(), activation=activation))

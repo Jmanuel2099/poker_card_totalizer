@@ -1,5 +1,7 @@
 from view.window import Window
 from deep_learning.models.model_one.model_one import ModelOne
+from deep_learning.models.model_two.model_two import ModelTwo
+
 
 class Main:
     def __init__(self) -> None:
@@ -15,7 +17,8 @@ class Main:
                 model = ModelOne()
                 model.run()
             if model == 2:
-                pass
+                model = ModelTwo()
+                model.run()
             if model == 3:
                 pass
 

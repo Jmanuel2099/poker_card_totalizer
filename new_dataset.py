@@ -4,7 +4,7 @@ from artificial_vision.image_recognition import ImageRecognition
 
 
 class NewDataset:
-    DATA_SET = 'dataset\\test'
+    DATA_SET = 'dataset\\new'
     NEW_DATASET_FOLDER = 'dataset\\resized'
 
     def __init__(self) -> None:

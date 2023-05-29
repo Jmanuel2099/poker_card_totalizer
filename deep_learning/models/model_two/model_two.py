@@ -5,13 +5,14 @@ from dataset.cropped_dataset import CroppedDataset
 import numpy as np
 import cv2
 from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score
+from keras.losses import categorical_crossentropy
 
 
 class ModelTwo:
     def __init__(self) -> None:
         self.dataset = CroppedDataset()
         self.model = Sequential()
-        self.path_to_save_model = 'deep_learning\models\model_one\model_one.h5'
+        self.path_to_save_model = 'deep_learning\models\model_two\model_two.h5'
         self.trained_model = None
         self.loss = ''
         self.accuracy = ''
@@ -24,13 +25,13 @@ class ModelTwo:
 
     def run(self):
         self._create_model()
-        self.train_model(epochs=50, batch_size=40)
+        self.train_model(epochs=50, batch_size=32)
         self._save_model()
         self._test_model()
         print(f'accuracy: {self.accuracy}, loss: {self.loss}, f1: {self.f1_score}, precision: {self.precision}, recall: {self.recall}')
 
     def predict(self, path_image):
-        model = self._load_model_trained()
+        self._load_model_trained()
         image = cv2.imread(path_image)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         image = cv2.resize(image, (self.dataset.WIDTH_IMAGE, self.dataset.HEIGHT_IMAGE))
@@ -40,7 +41,7 @@ class ModelTwo:
         loaded_images = []
         loaded_images.append(image)
         loaded_images_npa = np.array(loaded_images)
-        prediction = model.predict(x=loaded_images_npa)
+        prediction = self.trained_modelc.predict(x=loaded_images_npa)
         print("Prediction", prediction)
         major_classes = np.argmax(prediction, axis=1)
         print(major_classes)
@@ -49,18 +50,30 @@ class ModelTwo:
 
     def _create_model(self):
         self._create_input_layer()
-        self._create_convolutional_layer(kernel=5, 
-                                        strides=2, 
-                                        filters=20, 
-                                        padding="same", 
-                                        activation="relu", 
-                                        layer_name="layer_1")
-        self._create_convolutional_layer(kernel=3, 
+        self._create_convolutional_layer(kernel=8, 
                                         strides=1, 
-                                        filters=36, 
+                                        filters=16, 
                                         padding="same", 
                                         activation="relu", 
-                                        layer_name="layer_2")
+                                        layer_name="layer_1",
+                                        pooling=2,
+                                        strides_pooling=2)
+        self._create_convolutional_layer(kernel=4, 
+                                        strides=2, 
+                                        filters=26, 
+                                        padding="same", 
+                                        activation="relu",
+                                        layer_name="layer_2",
+                                        pooling=2,
+                                        strides_pooling=2)
+        # self._create_convolutional_layer(kernel=4, 
+        #                                 strides=2, 
+        #                                 filters=36, 
+        #                                 padding="same", 
+        #                                 activation="tanh", 
+        #                                 layer_name="layer_3",
+        #                                 pooling=2,
+        #                                 strides_pooling=2)
         self._flatten(activation="relu")
         self._create_output_layer(activation="softmax")
         self._translate_keras_to_tensorflow()
@@ -76,14 +89,14 @@ class ModelTwo:
         self.model.add(InputLayer(input_shape=(pixels,)))
         self.model.add(Reshape(image_shape))
 
-    def _create_convolutional_layer(self, kernel, strides, filters, padding, activation, layer_name):
+    def _create_convolutional_layer(self, kernel, strides, filters, padding, activation, layer_name, pooling, strides_pooling):
         self.model.add(Conv2D(kernel_size=kernel,
                               strides=strides,
                               filters=filters,
                               padding=padding,
                               activation=activation,
                               name=layer_name))
-        self.model.add(MaxPool2D(pool_size=2,strides=2))
+        self.model.add(MaxPool2D(pool_size=pooling,strides=strides_pooling))
 
     def _create_output_layer(self, activation):
         self.model.add(Dense(self.dataset.get_number_type_cards(), activation=activation))
