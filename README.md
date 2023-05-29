@@ -21,6 +21,20 @@
   - categoria k: 'dataset/test/k' (18) imagnes
   - categoria q: 'dataset/test/q' (18) imagnes
 
+## Matriz de confusion
+- model_one
+- model_two
+- model_three
+| 18 |  0 |  0 |  0 |  0 |  0 |  0 |
+|----|----|----|----|----|----|----|
+|  0 | 18 |  0 |  0 |  0 |  0 |  0 |
+|  0 |  0 | 18 |  0 |  0 |  0 |  0 |
+|  1 |  0 |  2 | 15 |  0 |  0 |  0 |
+|  0 |  0 |  0 |  0 | 18 |  0 |  0 |
+|  0 |  0 |  0 |  0 |  2 | 16 |  0 |
+|  0 |  0 |  0 |  0 |  0 |  0 | 18 |
+
+
 ## Metricas
 | Nombre | Accuracy | Precision | Recall | F1 Score | Loss | Epocas de entrenamiento | Tiempo de respuesta |
 |--------|----------|-----------|--------|----------|------|-------------------------|---------------------|
