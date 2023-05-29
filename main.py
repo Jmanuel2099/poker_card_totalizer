@@ -1,6 +1,7 @@
 from view.window import Window
 from deep_learning.models.model_one.model_one import ModelOne
 from deep_learning.models.model_two.model_two import ModelTwo
+from deep_learning.models.model_three.model_three import ModelThree
 
 
 class Main:
@@ -20,7 +21,8 @@ class Main:
                 model = ModelTwo()
                 model.run()
             if model == 3:
-                pass
+                model = ModelThree()
+                model.run()
 
 if __name__ == "__main__":
     main = Main()
