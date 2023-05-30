@@ -1,3 +1,9 @@
+## VIDEO SUSTENTACION
+
+
+[![Texto alternativo](https://img.youtube.com/vi/SWQEl9pLvOs/0.jpg)](https://www.youtube.com/watch?v=SWQEl9pLvOs)
+
+
 # poker_card_totalizer
 **poker_card_totalizer** es una aplicación que implementa redes neuronales convolucionales y visión artificial para identificar el valor de las cartas de poker (la cartas son de la categorías 7 a la k)
 
@@ -63,3 +69,6 @@
 | model_two | 89.68 | 89.81     | 89.68  | 89.67    | 32.82| 50                      |            **       |
 | model_three| 96.13| 96,95     | 96.03  | 95.99    | 23.84| 28                      |           **        |
 
+Analisis 
+El modelo 2 implementa una estructura con cuatro capas convolucionales y utiliza la función de activación "relu". Cada capa convolucional se combina con una capa de pooling para reducir la dimensionalidad espacial. Por otro lado, el modelo 3 también consta de cuatro capas convolucionales, pero utiliza la función de activación "LeakyReLU" y no incorpora capas de pooling. En cambio, el modelo 1 emplea tres capas convolucionales con diferentes configuraciones de kernel, pasos y filtros. Utiliza la función "relu" en las dos primeras capas y "tanh" en la tercera, junto con capas de pooling. Estas variaciones en la arquitectura y las funciones de activación dan lugar a diferencias en la forma en que los modelos extraen y procesan las características de los datos de entrada.
+Los filtros son fundamentales para extraer características relevantes de los datos de entrada
