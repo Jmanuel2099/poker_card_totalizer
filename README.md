@@ -1,13 +1,10 @@
-## VIDEO SUSTENTACION
-
-
-[![Texto alternativo](https://img.youtube.com/vi/SWQEl9pLvOs/0.jpg)](https://www.youtube.com/watch?v=SWQEl9pLvOs)
-
-
 # poker_card_totalizer
 **poker_card_totalizer** es una aplicación que implementa redes neuronales convolucionales y visión artificial para identificar el valor de las cartas de poker (la cartas son de la categorías 7 a la k)
 
 # Solucion
+
+## VIDEO SUSTENTACION
+[![Texto alternativo](https://img.youtube.com/vi/SWQEl9pLvOs/0.jpg)](https://www.youtube.com/watch?v=SWQEl9pLvOs)
 
 ## Dataset
 - Entrenamiento: 'dataset/train'
