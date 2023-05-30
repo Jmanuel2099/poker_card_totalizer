@@ -66,6 +66,12 @@
 | model_two | 89.68 | 89.81     | 89.68  | 89.67    | 32.82| 50                      |            **       |
 | model_three| 96.13| 96,95     | 96.03  | 95.99    | 23.84| 28                      |           **        |
 
-Analisis 
-El modelo 2 implementa una estructura con cuatro capas convolucionales y utiliza la función de activación "relu". Cada capa convolucional se combina con una capa de pooling para reducir la dimensionalidad espacial. Por otro lado, el modelo 3 también consta de cuatro capas convolucionales, pero utiliza la función de activación "LeakyReLU" y no incorpora capas de pooling. En cambio, el modelo 1 emplea tres capas convolucionales con diferentes configuraciones de kernel, pasos y filtros. Utiliza la función "relu" en las dos primeras capas y "tanh" en la tercera, junto con capas de pooling. Estas variaciones en la arquitectura y las funciones de activación dan lugar a diferencias en la forma en que los modelos extraen y procesan las características de los datos de entrada.
-Los filtros son fundamentales para extraer características relevantes de los datos de entrada
+## Analisis comparativo
+Para inciar se tiene un el model_one el cual implementa en su entrenamiento 50 epocas y numero de muestras de 32. Este modelo tiene 4 capas ocultas de la cuales 3 son convolucionales y una capa densa (full conected) con funcion de activacion relu. Donde dos de  las capas convolucionales utilizan una funcion de activacion relu y una la funcion de activacion tangencial, en estas capas se aimentan los filtros en 10 comenzado en 16 y terminando en 36.
+
+Luego se tiene el model_two el cual implementa en su entrenamiento 50 epoaca y numero de muestras de 60. Este modelo cuenta con 5 capas ocultas donde 4 de ellas con convolucionales donde cada capa tiene la funcion de activacion relu y una ultima capa oculta densa con funcion de activacion relu. En la capas convolucionales se fue aumnentando los filtros sin ningun orden especifico(36, 128, 144, 256).
+
+Y por ultimo se tiene model_three el cual cuenta para el entrenamiento 28 epocas y un batch size 45. Este modelo cuenta al igual que el anteriror modelo con 5 capas ocultas donde 4 son convolucionales y una capas densa (full conected) con funcion de activacion relu. Pero en este caso las capas convolucionales cuentan con una funcion de activacion LeakyReLU y aumnetan los filtros en cada capa de manera exponencial comenzando en 32 hasta 256.
+
+Con lo anterior mencionado y la tabla de **metricas** podemos concluir el modelo con menos epocas de entrenamiento y batch size equilibrado obtiene mejores metricas ya que el model_three que implemento 28 epocas en su entrenamiento tuvo mejorres metircas que los dos modelos que implementaron 50 epocas. Esto tambien se debe a que el modelo con mejores metricas implemento una variante de la funcion de activacion 'relu' la cual es 'LeakyReLU' y un mayor numero de filtros en sus capas convolucionales. Por ultimo cabe acalra que modelo que se utilizara para la prediccion sera el **model_three**
+
