@@ -7,6 +7,10 @@ class ImageRecognition:
         self.name_window = window
 
     def crop(self, gray_image, contours):
+        """
+        crop from a grayscale image and its contours is responsible for 
+        recognizing the figures in a grayscale image to keep only the important information of the image. 
+        """
         areas= self._calcular_areas(contours)
         i = 0
         areaMin = cv2.getTrackbarPos("areaMin", self.name_window)
@@ -26,6 +30,11 @@ class ImageRecognition:
         return rois
 
     def detect_figure_from_video(self, image_original):
+        """
+        detect_figure_from_video is responsible for detecting the contours of the figures in a 
+        grayscale video from the minimum and minimum(trackbars), and then used 
+        in the recognition of the figure and subsequent cropping.
+        """
         imgame_gris = cv2.cvtColor(image_original, cv2.COLOR_BGR2GRAY) # convertir a escala de grises
         min=cv2.getTrackbarPos("min", self.name_window)
         max=cv2.getTrackbarPos("max", self.name_window)
@@ -35,16 +44,11 @@ class ImageRecognition:
             cv2.drawContours(image_original, [figuraActual], 0, (0, 0, 255), 2)
         return imgame_gris, contours
 
-    # def detect_figure_from_file(self, path_img_original):
-    #     image = cv2.imread(path_img_original)
-    #     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # convertir a escala de grises 
-    #     min= 206
-    #     max= 232
-    #     binary_image=cv2.Canny(gray_image,min,max) # convertir a imagen binaria
-    #     contours, _=cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    #     return gray_image, contours
-
     def _calcular_areas(self, figuras):
+        """
+        _calculate_areas is in charge of calculating the areas from the contours 
+        of the figures detected in an image and then use them for proper recognition of the figures. 
+        """
         areas=[]
         for figuraActual in figuras:
             areas.append(cv2.contourArea(figuraActual))

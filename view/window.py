@@ -11,11 +11,15 @@ class Window:
     KEYS_TAKE_PICTURE = [55, 56, 57, 48, 107, 106, 113] # [7, 8, 9, 0, k, j, q]
 
     def __init__(self) -> None:
-        self.name_window = 'Nombre'
+        self.name_window = 'poker_card_totalizer'
         self.image_recognition = ImageRecognition(self.name_window)
         self.dataset = CroppedDataset()
 
     def _create_window(self):
+        """
+        _create_window is in charge of creating a window for the user to interact and
+        configure several parameters with the help of trackbar.
+        """
         cv2.namedWindow(self.name_window)
         cv2.createTrackbar("min", self.name_window, 0, 255, self._nothing)
         cv2.createTrackbar("max",  self.name_window, 100, 255, self._nothing)
@@ -23,9 +27,19 @@ class Window:
         cv2.createTrackbar("areaMin", self.name_window, 500, 10000, self._nothing)
 
     def _new_video_capture(self):
+        """
+        _new_video_capture is in charge of creating an instance of VideoCapture 
+        to generate a video capture window with it.
+        """
         return cv2.VideoCapture(self.OPTION_VIDEO_CAMERA)
 
     def run_window(self):
+        """
+        run_window is in charge of initializing the video capture and setting the different 
+        options that the application has ('esc' -> exit the application, 
+        'p' -> take picture to recognize the cards, 
+        '7','8','9','0','j','k' or 'q' -> take picture for the dataset). 
+        """
         cumulated = 0
         sum = 0
         self._create_window()

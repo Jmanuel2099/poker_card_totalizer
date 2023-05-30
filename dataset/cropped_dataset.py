@@ -6,8 +6,8 @@ import numpy as np
 class CroppedDataset:
     
     DATASET_FOLDER = 'dataset'
-    TRAINING_DATASET = 'train'
-    TEST_DATASET = 'test'
+    TRAINING_DATASET = 'train' # training mode to save the image
+    TEST_DATASET = 'test' # testing mode to save the image
     WIDTH_IMAGE = 128
     HEIGHT_IMAGE = 128
     CARDS_VALUES = [10, 7, 8, 9, 11, 12, 13] # -> [0, 7, 8, 9, j, k, q]
@@ -16,6 +16,10 @@ class CroppedDataset:
         pass
 
     def save_img_cropped(self, img_cropped, folder_to_save, image_name):
+        """
+        save_img_cropped is in charge of saving the cropped image with its local name depending 
+        on the mode (train or test) and returns the relative path where the cropped image was saved.
+        """
         # path_folder = os.path.join(self.DATASET_FOLDER, self.TRAINING_DATASET, folder_to_save)
         path_folder = os.path.join(self.DATASET_FOLDER, self.TRAINING_DATASET, folder_to_save)
         if not os.path.exists(path_folder):
@@ -25,11 +29,19 @@ class CroppedDataset:
         return path_image
 
     def get_number_type_cards(self):
+        """
+        get_number_type_cards is in charge of getting the number of categories (7...k) to work with.
+        """
         path_folder = os.path.join(self.DATASET_FOLDER, self.TRAINING_DATASET)
         card_types = os.listdir(path_folder)
         return len(card_types)
 
     def read_dataset(self, mode):
+        """
+        read_dataset is in charge of reading the data set to perform the flattening 
+        of the images in the data set and provide the possible outputs needed for 
+        the training of a convolutional network model. 
+        """
         loaded_images = []
         expected_card = []
         path_folder = os.path.join(self.DATASET_FOLDER, mode)
@@ -53,5 +65,8 @@ class CroppedDataset:
         expected_cards = np.array(expected_card)
         return training_images, expected_cards
 
-    def get_card_value(self, value):
-        return self.CARDS_VALUES[value]
+    def get_card_value(self, probability):
+        """
+        get_card_value gets the card number in order to translate a probability into the value of the card.
+        """
+        return self.CARDS_VALUES[probability]

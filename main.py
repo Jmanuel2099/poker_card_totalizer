@@ -8,6 +8,10 @@ class Main:
         self.window = Window()
     
     def start_app(self):
+        """
+        start_app is the main method and it is in charge of initializing 
+        the application with its initial options. 
+        """
         mode = int(input("1: Probar Modelo , 2: Entrenar modelo \n"))
         if mode == 1:
             self.window.run_window()
