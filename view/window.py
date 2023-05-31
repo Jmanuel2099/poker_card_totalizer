@@ -3,7 +3,9 @@ import numpy as np
 from artificial_vision.image_recognition import ImageRecognition
 from dataset.cropped_dataset import CroppedDataset
 # from deep_learning.models.model_one.model_one import ModelOne
+# from deep_learning.models.model_two.model_two import ModelTwo
 from deep_learning.models.model_three.model_three import ModelThree
+import datetime
 
 
 class Window:
@@ -56,6 +58,7 @@ class Window:
                 break
             if key == 112:
                 sum = 0
+                start_time = datetime.datetime.now() # tiempo en el que incia el proceso de prediccion.
                 model_to_predict = ModelThree()
                 images_cropped = self.image_recognition.crop(imgame_gris, contours)
                 for i, img in enumerate(images_cropped):
@@ -64,6 +67,8 @@ class Window:
                     value = self.dataset.get_card_value(prediction)
                     sum = sum + value
                 cumulated = cumulated + sum
+                end_time = datetime.datetime.now() # termina el tiempo de prediccion.
+                print("Time: ",end_time - start_time)
             if key in self.KEYS_TAKE_PICTURE:
                 images_cropped = self.image_recognition.crop(imgame_gris, contours)
                 for image_cropped in images_cropped:

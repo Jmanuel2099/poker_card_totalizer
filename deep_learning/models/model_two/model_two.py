@@ -5,7 +5,6 @@ from dataset.cropped_dataset import CroppedDataset
 import numpy as np
 import cv2
 from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score, confusion_matrix
-from keras.losses import categorical_crossentropy
 
 
 class ModelTwo:
@@ -52,10 +51,8 @@ class ModelTwo:
         loaded_images = []
         loaded_images.append(image)
         loaded_images_npa = np.array(loaded_images)
-        prediction = self.trained_modelc.predict(x=loaded_images_npa)
-        print("Prediction", prediction)
+        prediction = self.trained_model.predict(x=loaded_images_npa)
         major_classes = np.argmax(prediction, axis=1)
-        print(major_classes)
         return major_classes[0]
 
     def _create_model(self):
