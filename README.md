@@ -60,11 +60,11 @@
 
 
 ## Metricas
-| Nombre | Accuracy | Precision | Recall | F1 Score | Loss | Epocas de entrenamiento | Tiempo de respuesta |
-|--------|----------|-----------|--------|----------|------|-------------------------|---------------------|
-| model_one | 91.26 | 92.14     | 91.26  | 91.19    | 27.50| 50                      |           **        |
-| model_two | 89.68 | 89.81     | 89.68  | 89.67    | 32.82| 50                      |            **       |
-| model_three| 96.13| 96,95     | 96.03  | 95.99    | 23.84| 28                      |           **        |
+| Nombre | Accuracy | Precision | Recall | F1 Score | Loss | Epocas de entrenamiento | Tiempo de respuesta  |
+|--------|----------|-----------|--------|----------|------|-------------------------|----------------------|
+| model_one | 91.26 | 92.14     | 91.26  | 91.19    | 27.50| 50                      | 491.311 milisegundos |
+| model_two | 89.68 | 89.81     | 89.68  | 89.67    | 32.82| 50                      | 604.506 milisegundos |
+| model_three| 96.13| 96,95     | 96.03  | 95.99    | 23.84| 28                      | 695.891 milisegundos |
 
 ## Analisis comparativo
 Para inciar se tiene un el model_one el cual implementa en su entrenamiento 50 epocas y numero de muestras de 32. Este modelo tiene 4 capas ocultas de la cuales 3 son convolucionales y una capa densa (full conected) con funcion de activacion relu. Donde dos de  las capas convolucionales utilizan una funcion de activacion relu y una la funcion de activacion tangencial, en estas capas se aimentan los filtros en 10 comenzado en 16 y terminando en 36.
@@ -75,3 +75,7 @@ Y por ultimo se tiene model_three el cual cuenta para el entrenamiento 28 epocas
 
 Con lo anterior mencionado y la tabla de **metricas** podemos concluir el modelo con menos epocas de entrenamiento y batch size equilibrado obtiene mejores metricas ya que el model_three que implemento 28 epocas en su entrenamiento tuvo mejorres metircas que los dos modelos que implementaron 50 epocas. Esto tambien se debe a que el modelo con mejores metricas implemento una variante de la funcion de activacion 'relu' la cual es 'LeakyReLU' y un mayor numero de filtros en sus capas convolucionales. Por ultimo cabe acalra que modelo que se utilizara para la prediccion sera el **model_three**
 
+### posibles escenarios de fallo
+- Brindarle al modelo cartas con las cuales no fue entrenado, cartas que no esten entre las categorias de la 7 a las k.
+- Imagenes donde la luz sea muy escasa o casi en la oscuridad.
+- iamgenes donde la carta este muy lejana. (El aplicativo funciona no solo con dos cartas pero al tener varias cartas al momento de capturar la imagen para poder capturar todas las cartas queran muy alejadas).
